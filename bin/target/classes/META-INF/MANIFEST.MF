@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: vy
+Build-Jdk: 10.0.2
+Implementation-Title: s4h
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: lt.bit.service4hooman
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/s4h
+Created-By: Maven Integration for Eclipse
+
