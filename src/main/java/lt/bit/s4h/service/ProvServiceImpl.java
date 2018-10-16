@@ -1,22 +1,17 @@
 package lt.bit.s4h.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import lt.bit.s4h.entity.Provider;
 import lt.bit.s4h.repository.ProvRepository;
-import lt.bit.s4h.service.ProvService;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Validated
+@Transactional
 public class ProvServiceImpl implements ProvService {
 
 	private ProvRepository repository;
@@ -52,26 +47,50 @@ public class ProvServiceImpl implements ProvService {
 		repository.deleteById(id);
 	}
 
+//	@Override
+//	public List<Provider> findAllFreeProviders() {
+//		return repository.findByFreeBeforeOrderByFree(LocalDate.now()); //findAll();// findAllFree();
+//	}
+
 	@Override
-	public List<Provider> findAllFree() {
-		return repository.findAll();// findAllFree();
+	public List<Provider> findAllProviders() {
+		return repository.findAll();
 	}
 
 	@Override
 	public List<Provider> getProviders(String viewType) {
-		System.out.println(viewType + "-------------" + viewType);
-//				repository.findAll().stream().collect(Collectors.toList());
-//		List<Provider> prov = 			
-				return repository.findAll().stream()
-//				.forEach(pr -> System.out.println(pr.getName()));	
-				.filter(pr -> pr.getFree().isBefore(LocalDate.now()))
-				.collect(Collectors.toList());
-//		Collections.sort(prov, );
-//		System.out.println("---------------" + prov);
-		//return new ArrayList<Provider>();
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Provider> findAllFreeProviders() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	public List<Provider> findByFreeBeforeOrderByFree(LocalDate today) {
-		return repository.findByFreeBeforeOrderByFree(today);
-	}
+//	@Override
+//	public List<Provider> getProviders(String viewType) {
+//		
+//		System.out.println(viewType + "-------------" + viewType);
+//		if (viewType.equals("free")) {
+//			return repository.findByFreeBeforeOrderByFree(LocalDate.now());
+//		} else {
+//			return repository.findAll();
+			
+		
+//				repository.findAll().stream().collect(Collectors.toList());
+//		List<Provider> prov = 			
+		//return repository.findAll().stream()
+//				.forEach(pr -> System.out.println(pr.getName()));	
+		//		.filter(pr -> pr.getFree().isBefore(LocalDate.now())).collect(Collectors.toList());
+//		Collections.sort(prov, );
+//		System.out.println("---------------" + prov);
+		// return new ArrayList<Provider>();
+
+
+//	public List<Provider> findByFreeBeforeOrderByFree(LocalDate today) {
+//		return repository.findByFreeBeforeOrderByFree(today);
+//	}
+
 }

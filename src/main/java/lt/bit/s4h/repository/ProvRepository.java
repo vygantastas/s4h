@@ -15,7 +15,8 @@ public interface ProvRepository extends JpaRepository<Provider, Integer> {
 //	List<Provider> findByFreeBeforeNowOrderByFree(LocalDate now); 
 //	List<Provider> findByFreeOrderByFree();
 
-	List<Provider> findByFreeBeforeOrderByFree(LocalDate today); 
+//	List<Provider> findByFreeBeforeOrderByFree(LocalDate today); 
+//	List<Provider> findByFreeBeforeOrderByFree(LocalDate today); 
 	
 	
 }

@@ -3,7 +3,6 @@ package lt.bit.s4h.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,24 +36,16 @@ public class Provider implements Serializable {
 	@Size(min = 7, max = 12)
 	private String phone;
 
-	private int work;
-
-	private LocalDate free;
-
-	@Column(name = "rating")
-	private byte rating;
-
 	public Provider() {
 
 	}
 
 	public Provider(@NotNull int id, @NotBlank @Size(min = 4, max = 100) String name,
-			@Size(min = 4, max = 20) String passw, @Size(min = 7, max = 12) String phone, int work) {
+			@Size(min = 4, max = 20) String passw, @Size(min = 7, max = 12) String phone) {
 		this.id = id;
 		this.name = name;
 		this.passw = passw;
 		this.phone = phone;
-		this.work = work;
 	}
 
 	public int getId() {
@@ -69,16 +60,18 @@ public class Provider implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Provider setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getPassw() {
 		return passw;
 	}
 
-	public void setPassw(String passw) {
+	public Provider setPassw(String passw) {
 		this.passw = passw;
+		return this;
 	}
 
 	public String getPhone() {
@@ -89,29 +82,6 @@ public class Provider implements Serializable {
 		this.phone = phone;
 	}
 
-	public int getWork() {
-		return work;
-	}
-
-	public void setWork(int work) {
-		this.work = work;
-	}
-
-	public LocalDate getFree() {
-		return free;
-	}
-
-	public void setFree(LocalDate free) {
-		this.free = free;
-	}
-
-	public byte getRating() {
-		return rating;
-	}
-
-	public void setRating(byte rating) {
-		this.rating = rating;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
