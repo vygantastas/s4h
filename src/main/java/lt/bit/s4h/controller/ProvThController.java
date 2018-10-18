@@ -17,7 +17,7 @@ import lt.bit.s4h.entity.Provider;
 import lt.bit.s4h.service.AuthServiceImpl;
 import lt.bit.s4h.service.ProvService;
 
-@Controller
+//@Controller
 public class ProvThController {
 
 	@Autowired
@@ -43,10 +43,20 @@ public class ProvThController {
 
 	@PostMapping("/login}")
 	public String login(HttpServletRequest request) {
-		if (authService.authenticateProvider(request.getParameter("name"), request.getParameter("passw"))) {
+		if (authService.authenticateProvider(request.getParameter("username"), request.getParameter("password"))) {
+			System.out.println("login............");
 			return "index";
 		}
-		System.out.println("newwww............");
+		return "index";
+		
+	}
+	
+	@PostMapping("/create}")
+	public String create(HttpServletRequest request) {
+		if (authService.registerUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("sort"))) {
+			System.out.println("create............");
+			return "index";
+		}
 		return "index";
 		
 	}

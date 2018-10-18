@@ -1,7 +1,9 @@
 package lt.bit.s4h.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -22,13 +24,35 @@ public class LangServiceImpl implements LangService {
 		this.repository = repository;
 	}
 
-	public List<Language> findByFirst() {
-		return repository.findAll(); //findLanguagesByFirst();
+//	public List<Language> findByFirst() {
+//		return repository.findAll(); // findLanguagesByFirst();
+//	}
+
+//	@Override
+	public List<Language> findDifferenceLanguages() {
+		return repository.findDifferenceLanguages();// findByProvId(provId);
+	}
+
+	public List<Language> findAllByProvId(Integer provId) {
+//			System.out.println("repository.findFirstDistinctAndSecond();");
+		return repository.findAllByProvId(provId);
 	}
 
 	@Override
-	public List<Language> findAllByProvId(Integer provId) {
-		return repository.findByProvId(provId);
+	public Language findByLangId(Integer langId) {
+		return repository.findByLangId(langId);
+	}
+
+	@Override
+	public Language jobDone(Language lang) {
+		lang.setFree(LocalDate.now());
+		return lang;
+	}
+
+	@Override
+	public void saveLanguage(Language lang) {
+		repository.save(lang);
+
 	}
 
 //	public List<Language> findByFirst() {

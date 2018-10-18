@@ -10,6 +10,6 @@ import lt.bit.s4h.entity.Provider;
 @Repository
 public interface AuthRepository extends JpaRepository<Provider, Integer> {
 
-	Optional<Provider> findByNameAndPassw(String name, String passw);
-	Optional<Provider> findByName(String username);
+	Optional<Provider> findByUsernameAndPassword(String username, String password);
+	Optional<Provider> findByUsername(String username);
 }

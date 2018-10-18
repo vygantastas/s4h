@@ -1,9 +1,5 @@
 package lt.bit.s4h.service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,17 +32,17 @@ public class AuthServiceImpl {
 //	}
 
 	public boolean authenticateProvider(String username, String password) {
-		if (rep.findByNameAndPassw(username, password).isPresent()) {
+		if (rep.findByUsernameAndPassword(username, password).isPresent()) {
 			return true;
 		} 
 		return false;
 	}
 
-	public boolean registerUser(String username, String password) {
-		if (rep.findByName(username).isPresent()) {
+	public boolean registerUser(String username, String password, String sort) {
+		if (rep.findByUsername(username).isPresent()) {
 			return false;
 		} else {
-			Provider user = new Provider().setName(username).setPassw(password);
+			Provider user = new Provider().setUsername(username).setPassword(password);
 //					.setPassword(passwordEncoder.encode(password))
 //					.setRoles(Set.of(Roles.CUSTOMER));
 			rep.save(user);

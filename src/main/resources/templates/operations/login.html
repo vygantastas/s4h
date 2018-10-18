@@ -11,11 +11,14 @@
 			<form class="form-horizontal" th:action="@{/login}" name="input_form"
 				id="input_form" method="post" role="form">
 				<div class="form-group">
-					<input type="text" class="form-control" id="name"
+					<div th:if="${error != null}"
+						>Bad username or password</div>
+					<input type="text" class="form-control" id="username"
 						th:name="username" placeholder="name" maxlength="25" /> <br>
-					<input type="password" class="form-control" id="passw"
+					<input type="password" class="form-control" id="password"
 						th:name="password" placeholder="password" maxlength="20" /> <br>
 					<button type="submit" class="btn btn-primary">Enter</button>
+
 			</form>
 		</div>
 	</div>
@@ -23,6 +26,9 @@
 </html>
 
 <!-- 
+					    <div th:if="${not #lists.isEmpty(languages)}">
+        <div th:replace="operations/languageList :: languages"></div>
+    </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
                  <div style="text-align: center"><a th:href="@{'/use/{id}'(id=${lang.langId})}">

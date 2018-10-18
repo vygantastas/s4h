@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -32,10 +34,23 @@ public class Language implements Serializable {
 	@NotBlank // " ", " ", "\n", null
 	private String second;
 
-	private byte direction;
+	@Column
 	private byte work;
+	@Column
 	private LocalDate free;
+	@Column
 	private byte rating;
+
+	@Column
+	private float price;
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
 
 	public int getLangId() {
 		return langId;
@@ -45,6 +60,8 @@ public class Language implements Serializable {
 		this.langId = langId;
 	}
 
+	@ManyToOne
+	@JoinColumn(name = "prov_id")
 	public int getProvId() {
 		return provId;
 	}
@@ -67,14 +84,6 @@ public class Language implements Serializable {
 
 	public void setSecond(String langSecond) {
 		this.second = langSecond;
-	}
-
-	public byte getDirection() {
-		return direction;
-	}
-
-	public void setDirection(byte direction) {
-		this.direction = direction;
 	}
 
 	public byte getWork() {
@@ -101,4 +110,9 @@ public class Language implements Serializable {
 		this.rating = rating;
 	}
 
+	@Override
+	public String toString() {
+		return "Language [langId=" + langId + ", provId=" + provId + ", first=" + first + ", second=" + second
+				+ ", work=" + work + ", free=" + free + ", rating=" + rating + ", price=" + price + "]";
+	}
 }
