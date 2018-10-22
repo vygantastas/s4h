@@ -66,14 +66,17 @@ public class LangThController {
 		provId = prov.orElseThrow().getId();
 		String role = prov.get().getSort();
 		System.out.println("provId === " + provId + " is " + role);
+		List<Language> langs;
 		switch (role) {
 		case "T":
 			System.out.println("T");
+			langs = langService.findAllByProvId(provId);
+			model.addAttribute("languages", langs);
 			return "/operations/langList";
 //			break;
 		case "U":
 			System.out.println("U");
-			List<Language> langs = langService.findAllLanguages();
+			langs = langService.findAllLanguages();
 			model.addAttribute("languages", langs);
 			return "/operations/langSelect";
 //			break;
@@ -142,6 +145,10 @@ public class LangThController {
 	@PostMapping("/create")
 	public String createNew(HttpServletRequest request) {
 		String username = (String) request.getParameter("username");
+		if (authService.findByUsername(username).isPresent()) {
+			System.out.println("Duplicate username");
+			return "operations/login";
+		}
 		String password = (String) request.getParameter("password");
 		String mail = (String) request.getParameter("mail");
 		String name = (String) request.getParameter("name");

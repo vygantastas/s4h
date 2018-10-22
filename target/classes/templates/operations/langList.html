@@ -2,35 +2,40 @@
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="languages">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<div class="container">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="container">
 
+			<table class="table table-bordered table-hover horizontal-align">
+				<thead>
+					<tr>
+						<th style="width: 5%">1 Language</th>
+						<th style="width: 5%">2 Language</th>
+						<th style="width: 5%">Free from</th>
+						<th style="width: 5%">Change</th>
+						<th style="width: 5%">Delete</th>
+					</tr>
+				</thead>
+				<tbody>
 
-	<table class="table table-bordered table-hover horizontal-align">
-		<thead>
-			<tr>
-				<th style="width: 5%">1 Language</th>
-				<th style="width: 5%">2 Language</th>
-				<th style="width: 5%">Free from</th>
-				<th style="width: 5%">Change</th>
-				<th style="width: 5%">Delete</th>
-			</tr>
-		</thead>
-		<tbody>
+					<tr th:each="lang : ${languages}">
+						<td th:text="${lang.first}" style="text-align: center"></td>
+						<td th:text="${lang.second}" style="text-align: center"></td>
+						<td th:text="${lang.free}" style="text-align: center"></td>
 
-			<tr th:each="lang : ${languages}">
-				<td th:text="${lang.first}" style="text-align: center"></td>
-				<td th:text="${lang.second}" style="text-align: center"></td>
-				<td th:text="${lang.free}" style="text-align: center"></td>
-
-				<td style="text-align: center"><a
-					th:href="@{'/edit/{id}'(id=${lang.langId})}">Edit</a></td>
-				<td style="text-align: center"><a
-					th:href="@{'/delete/{id}'(id=${lang.langId})}">Delete</a></td>
-			</tr>
-		</tbody>
-	</table>
-	<a href="#" th:href="@{/newLang}"><button>New language</button></a>
-</div>
+						<td style="text-align: center"><a
+							th:href="@{'/edit/{id}'(id=${lang.langId})}">Edit</a></td>
+						<td style="text-align: center"><a
+							th:href="@{'/delete/{id}'(id=${lang.langId})}">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<a href="#" th:href="@{/newLang}"><button>New language</button></a>
+		</div>
+	</div>
+</body>
 </html>
 <!-- 
 

@@ -15,7 +15,7 @@ public interface ProvService {
 	void deleteProvider(Integer id);
 
 	List<Provider> getProviders(String viewType);
-
+	
 //	List<Provider> findAllFree();
 
 //	List<Provider> findByFreeBeforeOrderByFree(LocalDate today);
@@ -25,6 +25,8 @@ public interface ProvService {
 	List<Provider> findAllProviders();
 
 	List<Provider> findAllFreeProviders();
+	
+	
 	
 	
 }

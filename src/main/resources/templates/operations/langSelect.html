@@ -1,31 +1,37 @@
-
-
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="languages">
-    <table class="table table-bordered table-hover horizontal-align">
-        <thead>
-        <tr>
-            <th style="width: 5%">1 Language</th>
-            <th style="width: 5%">2 Language</th>
-            <th style="width: 5%">Free from</th>
-            <th style="width: 5%">Rating</th>
-            <th style="width: 5%">Register</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="lang : ${languages}">
-            <td th:text="${lang.first}" style="text-align: center"></td>
-            <td th:text="${lang.second}" style="text-align: center"></td>
-            <td th:text="${lang.free}" style="text-align: center"></td>
-            <td th:text="${lang.rating}" style="text-align: center"></td>
-            <td style="text-align: center"><a th:href="@{'/use/{id}'(id=${lang.langId})}">Use</a></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<div class="container">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="container">
+
+			<table class="table table-bordered table-hover horizontal-align">
+				<thead>
+					<tr>
+						<th style="width: 5%">1 Language</th>
+						<th style="width: 5%">2 Language</th>
+						<th style="width: 5%">Free from</th>
+						<th style="width: 5%">Rating</th>
+						<th style="width: 5%">Register</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="lang : ${languages}">
+						<td th:text="${lang.first}" style="text-align: center"></td>
+						<td th:text="${lang.second}" style="text-align: center"></td>
+						<td th:text="${lang.free}" style="text-align: center"></td>
+						<td th:text="${lang.rating}" style="text-align: center"></td>
+						<td style="text-align: center"><a
+							th:href="@{'/use/{id}'(id=${lang.langId})}">Use</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
 </html>
 <!-- 
             <th style="width: 5%">#</th>
