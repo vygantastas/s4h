@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -71,14 +73,22 @@ public class LangThController {
 
 	@GetMapping("/edit/{id}")
 	public String editLang(@PathVariable Integer id, Model model) {
-
+		
 		Language editLang = langService.findByLangId(id); // .getProviderById(id);
+		System.out.println(editLang.getProvId() + "--- /edit/{id} ---" + editLang.getLangId());
 		model.addAttribute("editLang", editLang);
 		System.out.println("Edit " + editLang);
 //		return "redirect:/languages";
 		// return "/operations/langList";
-
+		
 		return "/operations/editLang";
+	}
+	@GetMapping("/delete/{id}")
+	public String deleteLang(@PathVariable Integer id) { //, Model model) {
+
+		langService.deleteLanguage(id);
+//		return "/operations/editLang";
+		return "redirect:/languages";
 
 //		return "redirect:/"; //operations/langList";
 
@@ -95,7 +105,7 @@ public class LangThController {
 //				+ "}";
 	}
 
-	@PostMapping("/update")
+//	@PostMapping("/update")
 	public String addProduct(HttpServletRequest request) { // , Model model) {
 		System.out.println("fiddd = " + request.getParameter("fid"));
 		Language edit;
@@ -119,6 +129,20 @@ public class LangThController {
 		return "redirect:/languages";
 
 	}
+	
+	@PostMapping("/update")
+	public String updateLang(@ModelAttribute Language editLang) {
+		System.out.println(editLang.getProvId() + "--- /update ---" + editLang.getLangId());
+		if (editLang.getLangId() == 0) {
+			editLang.setProvId(provId);
+		}
+		System.out.println(editLang.getProvId() + "--- /update 2 ---" + editLang); //.getLangId());
+		
+		langService.saveLanguage(editLang);
+		System.out.println(editLang.getProvId() + "--- /update after ---" + + editLang.getLangId());
+		return "redirect:/languages";
+	}
+	
 //		<input type="hidden" name="fid" th:value="${editLang?.langId}" /> <input
 //	type="text" name="ffirst" th:value="${editLang?.first}" /> <input
 //			type="text" name="fsecond" th:value="${editLang?.second}" /> <input

@@ -55,6 +55,12 @@ public class LangServiceImpl implements LangService {
 
 	}
 
+	@Override
+	public void deleteLanguage(Integer langId) {
+		repository.deleteById(langId); 
+		
+	}
+
 //	public List<Language> findByFirst() {
 //		// TODO Auto-generated method stub
 //		return repository.findby;
