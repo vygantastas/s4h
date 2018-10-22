@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS s4h.providers
 username VARCHAR(25) NOT NULL,
 password VARCHAR(20) not null,
 name VARCHAR(25),
-phone varchar(12),
+mail varchar(40),
 sort varchar(1),
 PRIMARY KEY (id));
 

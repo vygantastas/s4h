@@ -43,22 +43,36 @@ public class ProvThController {
 
 	@PostMapping("/login}")
 	public String login(HttpServletRequest request) {
-		if (authService.authenticateProvider(request.getParameter("username"), request.getParameter("password"))) {
+		String auth = authService.authenticateProvider(request.getParameter("username"),
+				request.getParameter("password"));
+		switch (auth) {
+		case "T":
+			System.out.println("T");
+			break;
+		case "U":
+			System.out.println("U");
+			break;
+		default:
+			System.out.println("bad");
+
+		}
+		if (auth.equals("T")) {
 			System.out.println("login............");
 			return "index";
 		}
 		return "index";
-		
+
 	}
-	
+
 	@PostMapping("/create}")
 	public String create(HttpServletRequest request) {
-		if (authService.registerUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("sort"))) {
+		if (authService.registerUser(request.getParameter("username"), request.getParameter("password"),
+				request.getParameter("sort"))) {
 			System.out.println("create............");
 			return "index";
 		}
 		return "index";
-		
+
 	}
 
 //	@PostMapping("/products")

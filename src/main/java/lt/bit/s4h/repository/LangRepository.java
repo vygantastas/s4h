@@ -24,6 +24,7 @@ public interface LangRepository extends JpaRepository<Language, Integer> {
 
 	Language findByLangId(Integer langId);
 
+	List<Language> findAll();
 //	List<Language> findLanguagesByFirst();
 
 }

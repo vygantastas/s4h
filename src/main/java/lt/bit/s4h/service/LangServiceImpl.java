@@ -61,6 +61,11 @@ public class LangServiceImpl implements LangService {
 		
 	}
 
+	@Override
+	public List<Language> findAllLanguages() {
+		return repository.findAll();
+	}
+
 //	public List<Language> findByFirst() {
 //		// TODO Auto-generated method stub
 //		return repository.findby;

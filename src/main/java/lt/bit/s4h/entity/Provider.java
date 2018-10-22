@@ -22,7 +22,7 @@ public class Provider implements Serializable {
 
 	@Id
 	@NotNull
-	@GeneratedValue
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 
@@ -38,8 +38,8 @@ public class Provider implements Serializable {
 	@Column(name = "name")
 	private String name;
 
-	@Size(min = 7, max = 12)
-	private String phone;
+	@Size(max = 40)
+	private String mail;
 
 	@Column
 	private String sort;
@@ -47,12 +47,13 @@ public class Provider implements Serializable {
 	public Provider() {
 	}
 
-	public Provider(@NotNull int id, @NotBlank @Size(min = 3, max = 25) String username,
-			@Size(min = 3, max = 20) String password, @Size(min = 7, max = 12) String phone) {
-		this.id = id;
+	public Provider(String username, String password, String name, String mail, String sort) {
+//		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.phone = phone;
+		this.name = name;
+		this.mail = mail;
+		this.sort = sort;
 	}
 
 	public String getUsername() {
@@ -99,16 +100,21 @@ public class Provider implements Serializable {
 		return this;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getMail() {
+		return mail;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	@Override
+	public String toString() {
+		return "Provider [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", mail="
+				+ mail + ", sort=" + sort + "]";
+	}
 }

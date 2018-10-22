@@ -6,6 +6,8 @@ import lt.bit.s4h.entity.Language;
 
 public interface LangService {
 
+	List<Language> findAllLanguages();
+
 	List<Language> findAllByProvId(Integer provId);
 
 	Language findByLangId(Integer langId);

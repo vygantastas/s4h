@@ -11,14 +11,15 @@
 			<form class="form-horizontal" th:action="@{/login}" name="input_form"
 				id="input_form" method="post" role="form">
 				<div class="form-group">
-					<div th:if="${error != null}"
-						>Bad username or password</div>
+					<div th:if="${error == null}">
+						<div>Bad username or password</div>
+					</div>
 					<input type="text" class="form-control" id="username"
 						th:name="username" placeholder="name" maxlength="25" /> <br>
 					<input type="password" class="form-control" id="password"
 						th:name="password" placeholder="password" maxlength="20" /> <br>
 					<button type="submit" class="btn btn-primary">Enter</button>
-
+				</div>
 			</form>
 		</div>
 	</div>

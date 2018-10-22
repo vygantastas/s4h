@@ -11,5 +11,6 @@ import lt.bit.s4h.entity.Provider;
 public interface AuthRepository extends JpaRepository<Provider, Integer> {
 
 	Optional<Provider> findByUsernameAndPassword(String username, String password);
+//	String findByUsernameAndPassword(String username, String password);
 	Optional<Provider> findByUsername(String username);
 }

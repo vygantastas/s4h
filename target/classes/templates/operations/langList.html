@@ -4,15 +4,6 @@
 	xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="languages">
 
-	<form style="width: 100%" th:action="@{/save/id}" method="post">
-		<input type="hidden" name="fid" th:value="${editLang?.langId}" /> <input
-			type="text" name="ffirst" th:value="${editLang?.first}" /> <input
-			type="text" name="fsecond" th:value="${editLang?.second}" /> <input
-			type="text" name="fwork" th:value="${editLang?.work}" /> <input
-			type="text" name="ffree" th:value="${editLang?.free}" /> <input
-			type="text" name="fprice" th:value="${editLang?.price}" /> <input
-			type="submit" name="fsubmit" />
-	</form>
 
 	<table class="table table-bordered table-hover horizontal-align">
 		<thead>
@@ -38,11 +29,20 @@
 			</tr>
 		</tbody>
 	</table>
-	<a href="#" th:href="@{/new}"><button>New language</button></a>
+	<a href="#" th:href="@{/newLang}"><button>New language</button></a>
 </div>
 </html>
 <!-- 
 
+	<form style="width: 100%" th:action="@{/save/id}" method="post">
+		<input type="hidden" name="fid" th:value="${editLang?.langId}" /> <input
+			type="text" name="ffirst" th:value="${editLang?.first}" /> <input
+			type="text" name="fsecond" th:value="${editLang?.second}" /> <input
+			type="text" name="fwork" th:value="${editLang?.work}" /> <input
+			type="text" name="ffree" th:value="${editLang?.free}" /> <input
+			type="text" name="fprice" th:value="${editLang?.price}" /> <input
+			type="submit" name="fsubmit" />
+	</form>
 
 
 				<th style="width: 5%">Done</th>

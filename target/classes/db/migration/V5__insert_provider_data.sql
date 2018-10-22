@@ -1,5 +1,5 @@
 INSERT INTO s4h.providers 
-VALUES(null, 'aaa', 'aaa', 'Tomas', '5223322', 'T');
+VALUES(null, 'aaa', 'aaa', 'Tomas', 'post@post.lt', 'T');
 INSERT INTO s4h.providers 
 VALUES(null, 'blogas', 'toks', 'Jurgis', '5277722', 'T');
 INSERT INTO s4h.providers 

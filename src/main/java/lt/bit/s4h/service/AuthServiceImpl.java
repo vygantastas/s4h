@@ -31,11 +31,11 @@ public class AuthServiceImpl {
 //
 //	}
 
-	public boolean authenticateProvider(String username, String password) {
+	public String authenticateProvider(String username, String password) {
 		if (rep.findByUsernameAndPassword(username, password).isPresent()) {
-			return true;
-		} 
-		return false;
+			return rep.findByUsername(username).get().getSort(); // == "T";// ) {
+		}
+		return "N";
 	}
 
 	public boolean registerUser(String username, String password, String sort) {
