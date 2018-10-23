@@ -2,18 +2,20 @@ package lt.bit.s4h.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lt.bit.s4h.entity.Language;
@@ -32,6 +34,7 @@ public class LangThController {
 	private LangServiceImpl langService;
 	@Autowired
 	private AuthRepository authService;
+	ResourceBundle messages = ResourceBundle.getBundle("LocaleMessages", Locale.getDefault());
 
 	@GetMapping("/languages")
 	public String getProducts(Model model) { // , RedirectAttributes attr) {
@@ -59,9 +62,12 @@ public class LangThController {
 		Optional<Provider> prov = authService.findByUsernameAndPassword(user, passw);
 		System.out.println("provvvvv -------" + prov);
 		if (!prov.isPresent()) {
-//			model.addAttribute("error", "Bad user");
+			String errorMsg = messages.getString("errorBadUser");
+			System.out.println("errorMsg ---" + errorMsg);
+			model.addAttribute("error", errorMsg); //"Bad user");
 			System.out.println("Bad username or password");
-			return "redirect:/login";
+//			return "redirect:/login";
+			return "operations/login";
 		}
 		provId = prov.orElseThrow().getId();
 		String role = prov.get().getSort();
@@ -84,7 +90,7 @@ public class LangThController {
 			System.out.println("BAD");
 
 		}
-		
+
 //		RedirectAttributes attr,
 //		attr.addFlashAttribute("providerId", 1); // provId);
 		// attr.addAttribute("provId", provId);
@@ -96,18 +102,19 @@ public class LangThController {
 
 	@GetMapping("/edit/{id}")
 	public String editLang(@PathVariable Integer id, Model model) {
-		
+
 		Language editLang = langService.findByLangId(id); // .getProviderById(id);
 		System.out.println(editLang.getProvId() + "--- /edit/{id} ---" + editLang.getLangId());
 		model.addAttribute("editLang", editLang);
 		System.out.println("Edit " + editLang);
 //		return "redirect:/languages";
 		// return "/operations/langList";
-		
+
 		return "/operations/editLang";
 	}
+
 	@GetMapping("/delete/{id}")
-	public String deleteLang(@PathVariable Integer id) { //, Model model) {
+	public String deleteLang(@PathVariable Integer id) { // , Model model) {
 
 		langService.deleteLanguage(id);
 //		return "/operations/editLang";
@@ -127,23 +134,46 @@ public class LangThController {
 		// newLang.getLangId()
 //				+ "}";
 	}
-	
+
 	@GetMapping("/create")
 	public String inputNew(Model model) {
+		System.out.println("Active provider --- " + provId);
 		String username = "";
-		String password= "";
-		String name= "";
-		String mail= "";
+		String password = "";
+		String name = "";
+		String mail = "";
+		if (provId != null) {
+			Provider prov = provService.getProviderById(provId);
+			username = prov.getUsername();
+			name = prov.getName();
+			mail = prov.getMail();
+		}
+		model.addAttribute("id", provId);
 		model.addAttribute("username", username);
 		model.addAttribute("password", password);
 		model.addAttribute("name", name);
 		model.addAttribute("mail", mail);
 		return "operations/create";
-		
+
 	}
 	
+	@PostMapping("/create/{id}")
+	public String updateProv(@PathVariable Integer id, @ModelAttribute Provider editProv) {
+		Provider startProv = provService.getProviderById(id);
+		
+		if (id != null) {
+			editProv.setSort(startProv.getSort());
+			editProv.setUsername(startProv.getUsername());
+		}
+		System.out.println("/create/id --- " + editProv.getId());
+		
+		provService.updateProvider(id, editProv);
+		return "/operations/login";
+	}
+
 	@PostMapping("/create")
 	public String createNew(HttpServletRequest request) {
+		
 		String username = (String) request.getParameter("username");
 		if (authService.findByUsername(username).isPresent()) {
 			System.out.println("Duplicate username");
@@ -160,6 +190,12 @@ public class LangThController {
 //		if (sort.equals("T")) {
 //		} else {
 //		}
+		return "/operations/login";
+	}
+
+	@GetMapping("/logout")
+	public String logoutProv() {
+		provId = null;
 		return "/operations/login";
 	}
 
@@ -187,20 +223,20 @@ public class LangThController {
 		return "redirect:/languages";
 
 	}
-	
+
 	@PostMapping("/update")
 	public String updateLang(@ModelAttribute Language editLang) {
 		System.out.println(editLang.getProvId() + "--- /update ---" + editLang.getLangId());
 		if (editLang.getLangId() == 0) {
 			editLang.setProvId(provId);
 		}
-		System.out.println(editLang.getProvId() + "--- /update 2 ---" + editLang); //.getLangId());
-		
+		System.out.println(editLang.getProvId() + "--- /update 2 ---" + editLang); // .getLangId());
+
 		langService.saveLanguage(editLang);
-		System.out.println(editLang.getProvId() + "--- /update after ---" + + editLang.getLangId());
+		System.out.println(editLang.getProvId() + "--- /update after ---" + +editLang.getLangId());
 		return "redirect:/languages";
 	}
-	
+
 //		<input type="hidden" name="fid" th:value="${editLang?.langId}" /> <input
 //	type="text" name="ffirst" th:value="${editLang?.first}" /> <input
 //			type="text" name="fsecond" th:value="${editLang?.second}" /> <input

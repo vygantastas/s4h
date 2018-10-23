@@ -8,21 +8,26 @@
 		<div th:replace="fragments/header :: header"></div>
 		<div class="container">
 
-			<form class="form-horizontal" th:action="@{/create}"
-				name="input_form" id="input_form" method="post" role="form">
+			<form class="form-horizontal"
+				th:action="@{'/create/{id}' (id=${id})}" name="input_form"
+				id="input_form" method="post" role="form">
 				<div class="form-group">
-					<input type="text" class="form-control" id="username"
-						th:name="username" placeholder="username" maxlength="25" /> <br>
+					<div th:if="${id == null}">
+						<input type="text" class="form-control" id="username"
+							th:name="username" th:value="${username}" maxlength="25" /> <br>
+					</div>
 					<input type="password" class="form-control" id="password"
-						th:name="password" placeholder="password" maxlength="20" /> <br>
+						th:name="password" th:value="${password}" maxlength="20" /> <br>
 					<input type="text" class="form-control" id="name" th:name="name"
-						placeholder="name" maxlength="25" /> <br> <input type="text"
-						class="form-control" id="mail" th:name="mail" placeholder="mail"
-						maxlength="25" /> <br> <input type="radio"
-						class="form-check-input" th:name="sort" value="U" checked
-						id="sort"> User<br> <input type="radio"
-						class="form-check-input" th:name="sort" value="T" id="sort">Translator<br>
-					<br>
+						th:value="${name}" maxlength="25" /> <br> <input type="text"
+						class="form-control" id="mail" th:name="mail" th:value="${mail}"
+						maxlength="25" /> <br>
+					<div th:if="${id == null}">
+						<input type="radio" class="form-check-input" th:name="sort"
+							value="U" checked id="sort"> User<br> <input
+							type="radio" class="form-check-input" th:name="sort" value="T"
+							id="sort">Translator<br> <br>
+					</div>
 					<button type="submit" class="btn btn-primary">Enter</button>
 				</div>
 			</form>
@@ -32,6 +37,8 @@
 </html>
 
 <!-- 
+					<div th:if="${not #lists.isEmpty(languages)}">
+					<div th:if="${error != null}" th:text="${error}">
 
 
 					<div class="form-group">
