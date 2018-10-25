@@ -1,28 +1,22 @@
 package lt.bit.s4h.controller;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import lt.bit.s4h.entity.Provider;
 import lt.bit.s4h.service.ProvService;
 
-@RestController
-@RequestMapping("/providers")
+//@RestController
+//@RequestMapping("/providers")
 public class ProvRestController {
 
 	private String viewType = "free";
@@ -36,10 +30,15 @@ public class ProvRestController {
 
 	@GetMapping
 	@ResponseBody
-	public ResponseEntity<List<Provider>> getProductResponseEntity() {
-		return ResponseEntity.ok(service
-				.findByFreeBeforeOrderByFree(LocalDate.now())); //findByFreeOrderByFree()); 
+	public ResponseEntity<List<Provider>> getProvResponseEntity(String sortView) {
+		if (sortView.equals("free")) {
+			return ResponseEntity.ok(service.findAllFreeProviders());
+		} else {
+			return ResponseEntity.ok(service.findAllProviders());
+//					.findByFreeBeforeOrderByFree(LocalDate.now())); //findByFreeOrderByFree()); 
+//				.findByFreeBeforeOrderByFree(LocalDate.now())); //findByFreeOrderByFree()); 
 //				.getProviders(viewType));
+		}
 	}
 
 	@GetMapping("/{id}")

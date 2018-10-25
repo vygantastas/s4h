@@ -3,11 +3,12 @@ package lt.bit.s4h.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.annotation.Generated;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -21,42 +22,58 @@ public class Provider implements Serializable {
 
 	@Id
 	@NotNull
-	@GeneratedValue
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "username", nullable = false)
 	@NotBlank // " ", " ", "\n", null
-	@Size(min = 4, max = 25)
+	@Size(min = 3, max = 25)
+	private String username;
+
+	@Column(name = "password", nullable = false)
+	@Size(min = 3, max = 20)
+	private String password;
+
+	@Column(name = "name")
 	private String name;
 
-	@Column(name = "passw", nullable = false)
-	@Size(min = 4, max = 20)
-	private String passw;
+	@Size(max = 40)
+	private String mail;
 
-	@Size(min = 7, max = 12)
-	private String phone;
-
-	private int work;
-
-	private LocalDate free;
-
-	@Column(name = "rating")
-	private byte rating;
+	@Column
+	private String sort;
 
 	public Provider() {
-
 	}
 
-	public Provider(@NotNull int id, @NotBlank @Size(min = 4, max = 100) String name,
-			@Size(min = 4, max = 20) String passw, @Size(min = 7, max = 12) String phone, int work) {
-		this.id = id;
+	public Provider(String username, String password, String name, String mail, String sort) {
+//		this.id = id;
+		this.username = username;
+		this.password = password;
 		this.name = name;
-		this.passw = passw;
-		this.phone = phone;
-		this.work = work;
+		this.mail = mail;
+		this.sort = sort;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public Provider setUsername(String username) {
+		this.username = username;
+		return this;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+
+	@OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
 	public int getId() {
 		return id;
 	}
@@ -69,52 +86,35 @@ public class Provider implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Provider setName(String name) {
 		this.name = name;
+		return this;
 	}
 
-	public String getPassw() {
-		return passw;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPassw(String passw) {
-		this.passw = passw;
+	public Provider setPassword(String password) {
+		this.password = password;
+		return this;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getMail() {
+		return mail;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public int getWork() {
-		return work;
-	}
-
-	public void setWork(int work) {
-		this.work = work;
-	}
-
-	public LocalDate getFree() {
-		return free;
-	}
-
-	public void setFree(LocalDate free) {
-		this.free = free;
-	}
-
-	public byte getRating() {
-		return rating;
-	}
-
-	public void setRating(byte rating) {
-		this.rating = rating;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	@Override
+	public String toString() {
+		return "Provider [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", mail="
+				+ mail + ", sort=" + sort + "]";
+	}
 }
